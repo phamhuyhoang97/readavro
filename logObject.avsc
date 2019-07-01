@@ -1,0 +1,20 @@
+{
+  "type": "record",
+  "name": "Log",
+  "namespace": "vcc.project01.weblog",
+  "fields": [
+    {
+      "name": "b",
+      "type": ["null", "string"]
+    },
+    {
+      "name": "c",
+      "type": ["null", "string"]
+    },
+    {
+      "name": "d",
+      "type": ["null", "string"],
+	  "default": null
+    }
+  ]
+}
