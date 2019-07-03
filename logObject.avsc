@@ -13,8 +13,8 @@
     },
     {
       "name": "d",
-      "type": ["null", "string"],
-	  "default": null
+      "type": "string",
+      "default": "null"
     }
   ]
 }

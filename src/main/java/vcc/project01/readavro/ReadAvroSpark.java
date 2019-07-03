@@ -1,6 +1,9 @@
 package vcc.project01.readavro;
 
+import java.io.File;
 import java.io.IOException;
+
+import org.apache.avro.Schema;
 import org.apache.avro.mapred.FsInput;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -20,13 +23,19 @@ public class ReadAvroSpark {
 				  .config("spark.master", "local")
 				  .getOrCreate();
 		
-		String filePath = "hdfs://localhost:9000/topics/rest_test/partition=0/rest_test+0+0000011852+0000012851.avro";
-		Configuration conf = new Configuration();
-		FsInput avroData = new FsInput(new Path(filePath), conf);
+		File schemaPath = new File("logObject.avsc");
+		Schema schema = new Schema.Parser().parse(schemaPath);
 		
-		Dataset<Row> usersDF = spark.read().format("avro").load(filePath);
+		String folder = "hdfs://localhost:9000/topics/rest_test/partition=0/";
+		String file = "*";
+		String filePath = folder + file;
+		
+		Dataset<Row> usersDF = spark.read()
+				.format("avro")
+				.option("avroSchema", schema.toString())
+				.load(filePath);
 		usersDF.createOrReplaceTempView("logs");
-		Dataset<Row> temDF = spark.sql("SELECT count(b) FROM logs WHERE b = 'a'");
+		Dataset<Row> temDF = spark.sql("SELECT count(d) FROM logs WHERE d = 'null'");
 		temDF.show();
 		
 		spark.stop();

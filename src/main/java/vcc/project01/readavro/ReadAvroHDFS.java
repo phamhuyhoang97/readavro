@@ -16,7 +16,9 @@ public class ReadAvroHDFS {
 		
 		File schemaPath = new File("logObject.avsc");
 		Schema schema = new Schema.Parser().parse(schemaPath);
-		String filePath = "hdfs://localhost:9000/topics/rest_test/partition=0/rest_test+0+0000001000+0000001999.avro";
+		String folder = "hdfs://localhost:9000/topics/rest_test/partition=0/";
+		String file = "rest_test+0+0000005374+0000006373.avro";
+		String filePath = folder + file;
 		Configuration conf = new Configuration();
 		FsInput avroData = new FsInput(new Path(filePath), conf);
 		
