@@ -5,11 +5,12 @@
   "fields": [
     {
       "name": "b",
-      "type": ["null", "string"]
+      "type": "string",
+      "default": "null"
     },
     {
       "name": "c",
-      "type": ["null", "string"]
+      "type": ["null", "int"]
     },
     {
       "name": "d",
